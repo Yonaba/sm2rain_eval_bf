@@ -1,0 +1,19 @@
+"Code","SCID","Name","Type","Watershed","Latitude","Longitude","Altitude","Variable","miss"
+"1200000400","BFPJ001","ARIBINDA","Pluviometric","Niger ",14.2333,-0.8667,370,"pr",0
+"1200010000","BFPJ046","DORI","Synoptic","Niger",14.03333,-0.0333,288,"pr",0
+"1200006100","BFPJ028","BOURZANGA","Pluviometric","Volta",13.6833,-1.55,329,"pr",0
+"1200024100","BFPJ122","OUAHIGOUYA","Synoptic","Volta",13.5833,-2.4333,329,"pr",0
+"1200028900","BFPJ143","SEBBA","Pluviometric","Niger ",13.4333,0.5167,212,"pr",0
+"1200002800","BFPJ011","BARSALOGHO","Pluviometric","Niger ",13.4167,-1.0667,350,"pr",0.0466853408029879
+"1200007300","BFPJ033","DAKIRI","Pluviometric","Niger ",13.2833,-0.2333,280,"pr",0.0466853408029879
+"1200004300","BFPJ020","BOGANDE","Synoptic","Niger",12.9833,-0.1333,250,"pr",0
+"1200007900","BFPJ035","DEDOUGOU","Synoptic","Volta",12.4667,-3.4667,308,"pr",0
+"1200000100","BFPJ000","OUAGADOUGOU AERO","Synoptic","Volta",12.35,-1.5167,304,"pr",0
+"1200035300","BFPJ171","YAMBA","Pluviometric","Niger ",12.3,0.3333,306,"pr",0
+"1200010300","BFPJ047","FADA N'GOURMA","Synoptic","Niger",12.0333,0.3667,308,"pr",0
+"1200005200","BFPJ023","BOROMO","Synoptic","Volta",11.75,-2.9333,270,"pr",0
+"1200019600","BFPJ096","MAHADAGA","Pluviometric","Volta",11.7,1.75,225,"pr",0
+"1200025600","BFPJ129","PAMA","Pluviometric","Volta",11.25,0.7,230,"pr",0.140056022408964
+"1200026200","BFPJ132","PO","Synoptic","Volta",11.1667,-1.15,326,"pr",0
+"1200004000","BFPJ019","BOBO-DIOULASSO","Synoptic","Volta",11.1667,-4.3167,459,"pr",0
+"1200011200","BFPJ053","GAOUA","Synoptic","Volta",10.3333,-3.1833,333,"pr",0

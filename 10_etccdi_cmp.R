@@ -91,7 +91,7 @@ for (ind in inds) {
   cp <- cp + 1
   setccdi <- etccdi[etccdi$ind == ind,]
   ylab <- paste0(ind," [",u.inds[ind],"]")
-  if (cp == 4) ylab <- bquote(.(ind) ~ " [mm." * day^-1 *"]")
+  if (cp == 4) ylab <- bquote(.(ind) ~ " [mm " * day^-1 *"]")
   plist[[cp]] <- ggplot(setccdi, aes(x=product, y=values, fill = product)) + 
     geom_boxplot(outlier.colour="black", outlier.shape=21,outlier.size=2, outlier.fill = NA) +
     xlab("") + ylab(ylab) + 

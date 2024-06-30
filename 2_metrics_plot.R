@@ -61,7 +61,12 @@ rmse.lims <- list("ldaily" = c(0,10),
                "lmonthly" = c(0,70),
                "lannual" = c(0,500))
 
-ctheme.plot <-  theme(plot.title = element_text(color = "black", size = 20, face = "bold"),
+sub.timescale <- c("ldaily" = "Daily",
+                   "ldekad" = "Dekadal",
+                   "lmonthly" = "Monthly",
+                   "lannual" = "Annual")
+ctheme.plot <-  theme(plot.title = element_text(color = "black", size = 18, face = "bold"),
+                      plot.subtitle = element_text(color = "black", size = 14, face = "italic"),
                       axis.title.y = element_text(size = 14, margin = margin(r = 15)),        
                       axis.text = element_text(color = "black", size = 14),
                       axis.text.x = element_text(angle = 90),
@@ -70,55 +75,67 @@ ctheme.plot <-  theme(plot.title = element_text(color = "black", size = 20, face
                       legend.text = element_text(size = 14, color = "black"))
 
 pp <- 0
+glist <- list()
+cl <- 0
 for (timescale in unique(df$timescale)) {
   pp <- pp + 1
   print(paste0("Plotting: ",timescale))
   
+  cl <- cl + 1
   sdf <- df[((df$timescale == timescale) & (df$metric == "r")),]
   r.plot <- ggplot(sdf, aes(x=product, y=value, fill = product)) + 
     geom_boxplot(outlier.colour="black", outlier.shape=19,outlier.size=2) +
     xlab("") + ylab("r [-]") + ylim(0,1) +
-    labs(title = paste0("(a) r (Pearson)")) +
+    labs(title = paste0("(",letters[cl],") r (Pearson)"), subtitle = paste0(sub.timescale[timescale]," timescale")) +
     scale_fill_manual(values = cols) +
     theme_bw() + ctheme.plot +
     guides(fill = guide_legend(nrow = 1))
   
   
+  cl <- cl + 1
   sdf <- df[((df$timescale == timescale) & (df$metric == "rmse")),]
   rmse.plot <- ggplot(sdf, aes(x=product, y=value, fill = product)) + 
     geom_boxplot(outlier.colour="black", outlier.shape=19,outlier.size=2) +
     xlab("") + 
-    ylab(bquote("RMSE [mm." * .(rmse.units[timescale]) ^-1 *"]")) + 
+    ylab(bquote("RMSE [mm " * .(rmse.units[timescale]) ^-1 *"]")) + 
     ylim(rmse.lims[[timescale]]) +
-    labs(title = paste0("(b) RMSE")) +
+    labs(title = paste0("(",letters[cl],") RMSE"), subtitle = paste0(sub.timescale[timescale]," timescale")) +
     scale_fill_manual(values = cols) +
     theme_bw() + ctheme.plot +
     guides(fill = guide_legend(nrow = 1))
   
+  cl <- cl + 1  
   sdf <- df[((df$timescale == timescale) & (df$metric == "pbias")),]
   pbias.plot <- ggplot(sdf, aes(x=product, y=value, fill = product)) + 
     geom_boxplot(outlier.colour="black", outlier.shape=19,outlier.size=2) +
     xlab("") + ylab("PBIAS [%]") + ylim(-60,40) +
-    labs(title = paste0("(c) PBIAS")) +
+    labs(title = paste0("(",letters[cl],") PBIAS"), subtitle = paste0(sub.timescale[timescale]," timescale")) +
     scale_fill_manual(values = cols) +
     theme_bw() + ctheme.plot +
     guides(fill = guide_legend(nrow = 1))
   
+  cl <- cl + 1  
   sdf <- df[((df$timescale == timescale) & (df$metric == "kge")),]
   kge.plot <- ggplot(sdf, aes(x=product, y=value, fill = product)) + 
     geom_boxplot(outlier.colour="black", outlier.shape=19,outlier.size=2) +
     xlab("") + ylab("KGE [-]") + ylim(0,1) +
-    labs(title = paste0("(d) KGE")) +
+    labs(title = paste0("(",letters[cl],") KGE"), subtitle = paste0(sub.timescale[timescale]," timescale")) +
     scale_fill_manual(values = cols) +
     theme_bw() + ctheme.plot +
     guides(fill = guide_legend(nrow = 1))
   
-  grob <- ggarrange(r.plot, rmse.plot, pbias.plot, kge.plot, ncol = 2, nrow = 2,
-                    common.legend = T, legend = "bottom")
+  glist[[length(glist)+1]] <- r.plot
+  glist[[length(glist)+1]] <- rmse.plot
+  glist[[length(glist)+1]] <- pbias.plot
+  glist[[length(glist)+1]] <- kge.plot
+  
+  #grob <- ggarrange(r.plot, rmse.plot, pbias.plot, kge.plot, ncol = 2, nrow = 2,common.legend = T, legend = "bottom")
   #grob
-  ggsave(paste0("graphs/",pp,"_",timescale,"_boxp_metrics.png"), plot = grob, 
-         width = 20, height = 15, dpi = 400, scale = 0.6, bg = "white")  
 }
+
+grob <- ggarrange(plotlist = glist, ncol = 4, nrow = 4,common.legend = T, legend = "bottom")
+ggsave(paste0("graphs/",pp,"_boxp_metrics.png"), plot = grob, 
+       width = 30, height = 30, dpi = 400, scale = 0.6, bg = "white")  
 
 write.csv(df, file = paste0("tables/products_eval_metrics.csv"), row.names = F)
 

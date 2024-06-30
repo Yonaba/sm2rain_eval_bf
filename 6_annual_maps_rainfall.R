@@ -54,7 +54,7 @@ for (p in products[-1]) {
     #geom_sf(data = sp.df, aes(),size = 2.5) +
     #scale_shape_manual(values=c(1, 16)) +
     #geom_sf_text(data=sp.df, aes(label=stations$Station), nudge_y=0.25, size = 2.5) +
-    scale_fill_gradientn(name = bquote("Annual rainfall [mm."*yr^-1*"]"),
+    scale_fill_gradientn(name = bquote("Annual rainfall bias [mm "*yr^-1*"]"),
                          colors=turbo(100,begin = 0,direction=-1), 
                          na.value=NA,
                          trans = "identity",
